@@ -44,7 +44,7 @@ class Course(CommonDb):
     capacity = models.IntegerField(verbose_name="ظرفیت")
 
     def __str__(self):
-        return "{} by {} from {} to {} with {} capacity".format(self.name, self.teacher.name, self.term.start_date, self.term.end_date, self.capacity)
+        return "{} by {} with {} capacity".format(self.name, self.teacher.name, self.capacity)
 
     class Meta:
         verbose_name = "درس"
@@ -54,7 +54,7 @@ class Course(CommonDb):
 class Enrollment(models.Model):
     course = models.ForeignKey(Course, on_delete=models.DO_NOTHING, verbose_name="درس")
     student = models.ForeignKey(Student, on_delete=models.DO_NOTHING, verbose_name="دانش آموز")
-    grade = models.FloatField(verbose_name="نمره", blank=True, null=True)
+    grade = models.FloatField(verbose_name="نمره", blank=True, default=-1)
 
     def __str__(self):
         return "{} in course {}  take {}".format(self.student.name, self.course.name, self.grade )
