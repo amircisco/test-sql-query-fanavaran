@@ -74,5 +74,5 @@ def q11(request):
 
 def q12(request):
     # qs = Enrollment.objects.select_related("course").values("course__teacher_id")
-    qs = Enrollment.objects.values("course_id").annotate(c=Count('student'))
+    qs = Enrollment.objects.values("course_id").annotate(Count('id')).filter(id__count__gt=1)
     return Common.rnd(request, qs)
